@@ -26,11 +26,16 @@ SELECT distinct performer, tour FROM fsdb.livesingings WHERE tour is not null;
 INSERT INTO concerts (performer, concert_date)
 SELECT distinct performer, to_date(when, 'DD-MM-YYYY') /*tour, to_number(man_mobile), municipality, country, address, attendance, duration_min*/ FROM fsdb.livesingings;
 
+/*
 INSERT INTO memberships 
 SELECT musician, band,role,start_date,end_date FROM fsdb.artists WHERE band is NOT NULL;
 
 INSERT INTO memberships 
 SELECT musician, musician,role,start_date,end_date FROM fsdb.artists WHERE band is NULL;
+*/
+
+INSERT INTO memberships
+SELECT musician, coalesce(band, musician), role, star_date, end_date FROM fsdb.artists;
 
 INSERT INTO performed_songs 
 SELECT song,writer, performer, to_date(when, 'dd-mm-yyyy'), cowriter, duration_min FROM fsdb.livesingings;
