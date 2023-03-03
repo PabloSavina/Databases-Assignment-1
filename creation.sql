@@ -112,7 +112,7 @@ CREATE TABLE recorded_songs(
 	recording_engineer VARCHAR2(50),
 	studio_name VARCHAR2(50) NULL,
 	studio_address VARCHAR2(100) NULL,
-	CONSTRAINT pk_rec_song PRIMARY KEY(track_order,album),
+	CONSTRAINT pk_rec_song PRIMARY KEY(author,album,title,track_order),
 	CONSTRAINT fk_rec_song_album FOREIGN KEY(album) REFERENCES albums(pair) ON DELETE CASCADE,
 	CONSTRAINT fk_rec_song_performer FOREIGN KEY(performer) REFERENCES performers(stage_name) ON DELETE CASCADE,
 	CONSTRAINT pos_dur_rec_song CHECK(duration > 0),
