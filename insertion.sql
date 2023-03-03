@@ -35,7 +35,7 @@ SELECT musician, musician,role,start_date,end_date FROM fsdb.artists WHERE band 
 */
 
 INSERT INTO memberships
-SELECT musician, coalesce(band, musician), role, star_date, end_date FROM fsdb.artists;
+SELECT passport, coalesce(band, musician), role, start_date, end_date FROM fsdb.artists;
 
 INSERT INTO performed_songs 
 SELECT song,writer, performer, to_date(when, 'dd-mm-yyyy'), cowriter, duration_min FROM fsdb.livesingings;
