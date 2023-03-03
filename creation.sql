@@ -33,7 +33,7 @@ CREATE TABLE albums(
 	record_label VARCHAR2(25) NOT NULL,
 	title VARCHAR2(50) NOT NULL,
 	album_performer VARCHAR2(50) NOT NULL,
-	total_duration NUMBER(3) NOT NULL,
+	total_duration NUMBER(10) NOT NULL,
 	manager NUMBER (10), 
 	CONSTRAINT pk_album PRIMARY KEY(pair),
 	CONSTRAINT fk_album_album_performer FOREIGN KEY(album_performer) REFERENCES performers (stage_name), 

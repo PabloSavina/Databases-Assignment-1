@@ -36,10 +36,10 @@ INSERT INTO performed_songs
 SELECT DISTINCT song,writer, performer, to_date(when, 'dd-mm-yyyy'), cowriter, duration_min FROM fsdb.livesingings;
 
 INSERT INTO albums
-SELECT album_pair, release_date, format, publisher, album_title, performer, album_length, manager_name from fsdb.recordings WHERE album_pair is not null;
+SELECT DISTINCT album_pair, release_date, format, publisher, album_title, performer, to_number(album_length), to_number(man_mobile) from fsdb.recordings WHERE album_pair is not null;
 
 INSERT INTO recorded_songs 
-SELECT tracknum, album_expair, duration/60, song, writer, performer, to_date(rec_date,'dd-mm-yyyy'), engineer, studio,stud_address FROM fsdb.recordings;
+SELECT DISTINCT tracknum, album_pair, duration/60, song, writer, performer, to_date(rec_date,'dd-mm-yyyy'), engineer, studio,stud_address FROM fsdb.recordings;
 
 
 INSERT INTO record_labels
