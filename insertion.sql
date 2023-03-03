@@ -11,6 +11,9 @@ truncate table record_labels;
 truncate table attendees;
 truncate table attendance_sheet;
 
+INSERT INTO managers 
+SELECT DISTINCT manager_name, man_fam_name,man_mobile FROM fsdb.recordings;
+
 INSERT INTO performers
 SELECT distinct coalesce(band, musician), nationality, band_language FROM fsdb.artists;
 
@@ -28,9 +31,6 @@ SELECT musician, band,role,start_date,end_date FROM fsdb.artists WHERE band is N
 
 INSERT INTO memberships 
 SELECT musician, musician,role,start_date,end_date FROM fsdb.artists WHERE band is NULL;
-
-INSERT INTO managers 
-SELECT DISTINCT manager_name, man_fam_name,man_mobile FROM fsdb.recordings;
 
 INSERT INTO performed_songs 
 SELECT song,writer, performer, to_date(when, 'dd-mm-yyyy'), cowriter, duration_min FROM fsdb.livesingings;
