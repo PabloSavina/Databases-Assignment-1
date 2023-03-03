@@ -64,7 +64,7 @@ CREATE TABLE concerts(
 	CONSTRAINT fk_concerts_performers FOREIGN KEY(performer) REFERENCES performers(stage_name),
 	CONSTRAINT fk_concerts_tours FOREIGN KEY(performer, tour) REFERENCES tours(performer, name),
 	CONSTRAINT fk_concerts_managers FOREIGN KEY(manager) REFERENCES managers(mobile_phone_number),
-	CONSTRAINT valid_number_of_attendees CHECK (number_of_attendees > 0)
+	CONSTRAINT valid_number_of_attendees CHECK (number_of_attendees > -1)
 );
 
 
