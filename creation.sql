@@ -58,7 +58,7 @@ CREATE TABLE concerts(
 	municipality VARCHAR2(100) NOT NULL,
 	country VARCHAR2(100) NOT NULL,
 	venue_address VARCHAR2(100) NOT NULL,
-	number_of_attendees NUMBER(7) NOT NULL,
+	number_of_attendees NUMBER(7),
 	total_duration NUMBER(3),
 	CONSTRAINT pk_concerts PRIMARY KEY(performer, concert_date),
 	CONSTRAINT fk_concerts_performers FOREIGN KEY(performer) REFERENCES performers(stage_name),
