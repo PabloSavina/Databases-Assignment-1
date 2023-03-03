@@ -1,17 +1,7 @@
-truncate table performers;
-truncate table musicians;
-truncate table tours;
-truncate table concerts;
-truncate table memberships;
-truncate table managers;
-truncate table performed_songs;
-truncate table recorded_songs;
-truncate table albums;
-truncate table record_labels;
-truncate table attendees;
-truncate table attendance_sheet;
-
-INSERT INTO managers SELECT DISTINCT manager_name, man_fam_name,man_mobile FROM fsdb.recordings WHERE man_mobile is not NULL UNION SELECT DISTINCT  manager_name, man_fam_name,man_mobile FROM fsdb.livesingings WHERE man_mobile is not NULL;
+INSERT INTO managers 
+SELECT DISTINCT manager_name, man_fam_name,man_mobile FROM fsdb.recordings WHERE man_mobile is not NULL 
+UNION
+SELECT DISTINCT  manager_name, man_fam_name,man_mobile FROM fsdb.livesingings WHERE man_mobile is not NULL;
 
 INSERT INTO performers
 SELECT distinct coalesce(band, musician), nationality, band_language FROM fsdb.artists;
@@ -32,13 +22,13 @@ SELECT passport,coalesce(band, musician),role,start_date,end_date FROM fsdb.arti
 
 
 INSERT INTO performed_songs 
-SELECT DISTINCT song,writer, performer, to_date(when, 'dd-mm-yyyy'), cowriter, duration_min FROM fsdb.livesingings;
+SELECT DISTINCT song,writer, performer, to_date(when, 'DD-MM-YYYY'), cowriter, duration_min FROM fsdb.livesingings;
 
 INSERT INTO albums
 SELECT DISTINCT album_pair, release_date, format, publisher, album_title, performer, to_number(album_length), to_number(man_mobile) from fsdb.recordings WHERE album_pair is not null;
 
 INSERT INTO recorded_songs 
-SELECT DISTINCT tracknum, album_pair, duration/60, song, writer, performer, to_date(rec_date,'dd-mm-yyyy'), engineer, studio,stud_address FROM fsdb.recordings;
+SELECT DISTINCT tracknum, album_pair, duration/60, song, writer, performer, to_date(rec_date,'DD-MM-YYYY'), engineer, studio,stud_address FROM fsdb.recordings;
 
 
 INSERT INTO record_labels
