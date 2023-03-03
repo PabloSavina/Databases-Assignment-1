@@ -38,7 +38,8 @@ CREATE TABLE albums(
 	CONSTRAINT pk_album PRIMARY KEY(pair),
 	CONSTRAINT fk_album_album_performer FOREIGN KEY(album_performer) REFERENCES performers (stage_name), 
 	CONSTRAINT fk_album_manager FOREIGN KEY (manager) REFERENCES managers (mobile_phone_number),
-	CONSTRAINT valid_dur_album CHECK(total_duration > 0)
+	CONSTRAINT valid_dur_album CHECK(total_duration > 0),
+	CONSTRAINT valid_format_album CHECK (format IN ('Vynil','Single','CD','Streaming','Audio File','MP3'))
 );
 
 
@@ -96,7 +97,7 @@ CREATE TABLE performed_songs(
 	author2 VARCHAR2(100) NULL,
 	duration NUMBER(4) NULL,
 	CONSTRAINT pk_perf_song PRIMARY KEY(title,author1, concert_performer,concert_date),
-	CONSTRAINT fk_perf_song_concert FOREIGN KEY(concert_performer,concert_date) REFERENCES concerts(performer,concert_date)
+	CONSTRAINT fk_perf_song_concert FOREIGN KEY(concert_performer,concert_date) REFERENCES concerts(performer,concert_date) ON DELETE CASCADE
 );
 
 
@@ -112,8 +113,8 @@ CREATE TABLE recorded_songs(
 	studio_name VARCHAR2(50) NULL,
 	studio_address VARCHAR2(100) NULL,
 	CONSTRAINT pk_rec_song PRIMARY KEY(track_order,album),
-	CONSTRAINT fk_rec_song_album FOREIGN KEY(album) REFERENCES albums(pair),
-	CONSTRAINT fk_rec_song_performer FOREIGN KEY(performer) REFERENCES performers(stage_name),
+	CONSTRAINT fk_rec_song_album FOREIGN KEY(album) REFERENCES albums(pair) ON DELETE CASCADE,
+	CONSTRAINT fk_rec_song_performer FOREIGN KEY(performer) REFERENCES performers(stage_name) ON DELETE CASCADE,
 	CONSTRAINT pos_dur_rec_song CHECK(duration > 0),
 	CONSTRAINT valid_dur_rec_song CHECK(duration < 90)
 );
@@ -147,6 +148,9 @@ CREATE TABLE attendance_sheet(
 	date_of_ticket_purchase DATE,
 	rfid VARCHAR2(120),
 	CONSTRAINT pk_att_sheet PRIMARY KEY (rfid),
-	CONSTRAINT fk_att_sheet_concert FOREIGN KEY(concert_performer,concert_date) REFERENCES concerts(performer,concert_date),
-	CONSTRAINT fk_att_sheet_attendee FOREIGN KEY(attendee) REFERENCES attendees(email)
+	CONSTRAINT fk_att_sheet_concert FOREIGN KEY(concert_performer,concert_date) REFERENCES concerts(performer,concert_date) ON DELETE CASCADE,
+	CONSTRAINT fk_att_sheet_attendee FOREIGN KEY(attendee) REFERENCES attendees(email) ON DELETE CASCADE,
+	CONSTRAINT check_valid_age_att CHECK ((concert_date - date_of_birth) / 365 >= 18),
+	CONSTRAINT chceck_valid_pur_att_1 CHECK (date_of_ticket_purchase < concert_date),
+	CONSTRAINT chceck_valid_pur_att_2 CHECK (date_of_ticket_purchase > date_of_birth)
 );
