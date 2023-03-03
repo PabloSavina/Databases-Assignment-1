@@ -23,8 +23,8 @@ SELECT distinct musician, passport, nationality, to_date(birthdate, 'DD-MM-YYYY'
 INSERT INTO tours
 SELECT distinct performer, tour FROM fsdb.livesingings WHERE tour is not null;
 
-INSERT INTO concerts (performer, concert_date, tour, manager, municipality, country, venue_address)
-SELECT distinct performer, to_date(when, 'DD-MM-YYYY'), tour, to_number(man_mobile), municipality, country, address/*, attendance, duration_min*/ FROM fsdb.livesingings;
+INSERT INTO concerts (performer, concert_date)
+SELECT distinct performer, to_date(when, 'DD-MM-YYYY'), /*tour, to_number(man_mobile), municipality, country, address, attendance, duration_min*/ FROM fsdb.livesingings;
 
 INSERT INTO memberships 
 SELECT musician, band,role,start_date,end_date FROM fsdb.artists WHERE band is NOT NULL;
