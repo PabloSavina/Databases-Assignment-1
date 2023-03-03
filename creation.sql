@@ -8,7 +8,7 @@ drop TABLE performed_songs cascade constraints;
 drop TABLE recorded_songs cascade constraints;
 drop TABLE albums cascade constraints;
 drop TABLE record_labels cascade constraints;
-drop TABLE attendance_sheet cascade constraints;
+drop TABLE attendance_sheets cascade constraints;
 drop TABLE attendees cascade constraints;
 
 CREATE TABLE performers(
@@ -139,7 +139,7 @@ CREATE TABLE attendees(
 	CONSTRAINT pk_attendees PRIMARY KEY (email)
 );
 
-CREATE TABLE attendance_sheet(
+CREATE TABLE attendance_sheets(
 	concert_performer VARCHAR2(100) NOT NULL,
 	concert_date DATE NOT NULL,
 	attendee VARCHAR2(100) NOT NULL,
