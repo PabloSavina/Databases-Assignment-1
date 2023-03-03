@@ -148,7 +148,7 @@ CREATE TABLE attendance_sheet(
 	date_of_ticket_purchase DATE,
 	rfid VARCHAR2(120),
 	CONSTRAINT pk_att_sheet PRIMARY KEY (rfid),
-	CONSTRAINT fk_att_sheet_concert FOREIGN KEY(concert_performer,concert_date) REFERENCES concerts(performer,concert_date) ON DELETE CASCADE,
+	/*CONSTRAINT fk_att_sheet_concert FOREIGN KEY(concert_performer,concert_date) REFERENCES concerts(performer,concert_date) ON DELETE CASCADE,*/
 	CONSTRAINT fk_att_sheet_attendee FOREIGN KEY(attendee) REFERENCES attendees(email) ON DELETE CASCADE,
 	CONSTRAINT check_valid_age_att CHECK ((concert_date - date_of_birth) / 365 >= 18),
 	CONSTRAINT chceck_valid_pur_att_1 CHECK (date_of_ticket_purchase < concert_date),
