@@ -11,12 +11,7 @@ truncate table record_labels;
 truncate table attendees;
 truncate table attendance_sheet;
 
-INSERT INTO managers 
-(SELECT DISTINCT manager_name, man_fam_name,man_mobile)
-FROM fsdb.recordings
-OUTER JOIN
-(SELECT manager)
-FROM fsdb.livesingings;
+INSERT INTO managers SELECT DISTINCT manager_name, man_fam_name,man_mobile FROM fsdb.recordings WHERE man_mobile is not NULL UNION SELECT DISTINCT  manager_name, man_fam_name,man_mobile FROM fsdb.livesingings WHERE man_mobile is not NULL;
 
 INSERT INTO performers
 SELECT distinct coalesce(band, musician), nationality, band_language FROM fsdb.artists;
