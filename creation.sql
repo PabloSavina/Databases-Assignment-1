@@ -81,7 +81,7 @@ CREATE TABLE memberships(
 	musician VARCHAR2(50) NOT NULL,
 	performer VARCHAR2(50) NOT NULL,
 	role VARCHAR2(15),
-	date_of_incorporation DATE NOT NULL,
+	date_of_incorporation DATE,
 	date_of_withdrawal DATE,
 	CONSTRAINT pk_memberships PRIMARY KEY(musician, performer),
 	CONSTRAINT fk_memberships_musicians FOREIGN KEY(musician) REFERENCES musicians(passport) ON DELETE CASCADE,

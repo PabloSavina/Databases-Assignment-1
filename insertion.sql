@@ -18,7 +18,7 @@ WHERE man_mobile is not NULL and duration_min is not NULL;
 
 
 INSERT INTO memberships 
-SELECT passport,coalesce(band, musician),role,start_date,end_date FROM fsdb.artists;
+SELECT passport,coalesce(band, musician),role, start_date,end_date FROM fsdb.artists;
 
 
 INSERT INTO performed_songs 
