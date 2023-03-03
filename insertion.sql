@@ -26,25 +26,20 @@ SELECT distinct performer, tour FROM fsdb.livesingings WHERE tour is not null;
 INSERT INTO concerts (performer, concert_date)
 SELECT distinct performer, to_date(when, 'DD-MM-YYYY') /*tour, to_number(man_mobile), municipality, country, address, attendance, duration_min*/ FROM fsdb.livesingings;
 
-/*
-INSERT INTO memberships 
-SELECT musician, band,role,start_date,end_date FROM fsdb.artists WHERE band is NOT NULL;
 
 INSERT INTO memberships 
-SELECT musician, musician,role,start_date,end_date FROM fsdb.artists WHERE band is NULL;
-*/
+SELECT passport,coalesce(band, musician),role,start_date,end_date FROM fsdb.artists;
 
-INSERT INTO memberships
-SELECT musician, coalesce(band, musician), role, star_date, end_date FROM fsdb.artists;
 
 INSERT INTO performed_songs 
-SELECT song,writer, performer, to_date(when, 'dd-mm-yyyy'), cowriter, duration_min FROM fsdb.livesingings;
-
-INSERT INTO recorded_songs 
-SELECT tracknum, album_pair, duration, song, writer, performer, to_date(rec_date,'dd-mm-yyyy'), engineer, studio,stud_address;
+SELECT DISTINCT song,writer, performer, to_date(when, 'dd-mm-yyyy'), cowriter, duration_min FROM fsdb.livesingings;
 
 INSERT INTO albums
 SELECT album_pair, release_date, format, publisher, album_title, performer, album_length, manager_name from fsdb.recordings WHERE album_pair is not null;
+
+INSERT INTO recorded_songs 
+SELECT tracknum, album_expair, duration/60, song, writer, performer, to_date(rec_date,'dd-mm-yyyy'), engineer, studio,stud_address FROM fsdb.recordings;
+
 
 INSERT INTO record_labels
 SELECT distinct publisher, pub_phone from fsdb.recordings WHERE publisher is not null;

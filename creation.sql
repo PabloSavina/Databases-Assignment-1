@@ -104,7 +104,7 @@ CREATE TABLE performed_songs(
 CREATE TABLE recorded_songs(
 	track_order NUMBER(3),
 	album CHAR(15),
-	duration NUMBER(2),
+	duration NUMBER(4),
 	title VARCHAR2(50),
 	author VARCHAR2(50),
 	performer VARCHAR2(50),
